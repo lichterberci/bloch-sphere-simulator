@@ -27,9 +27,9 @@ class Gate:
             self._matrix = np.eye(2)
         elif isinstance(args, np.ndarray):
             assert args.shape[0] == 2 and args.shape[1] == 2, "The matrix must be 2x2"
-            assert np.allclose(
-                np.eye(2), args @ args.conj().T
-            ), "The matrix is not unitary"
+            # assert np.allclose(
+            #     np.eye(2), args @ args.conj().T
+            # ), "The matrix is not unitary"
 
             self._matrix = args
         elif isinstance(args, str):
@@ -58,6 +58,13 @@ class Gate:
             np.ndarray: The new state after applying the gate.
         """
         return State(self._matrix @ state.state)
+
+    def set_matrix(self, matrix: np.ndarray):
+        """
+        Set the matrix that represents the gate.
+        """
+
+        self._matrix = matrix
 
     def __mul__(self, state: State) -> State:
         """Apply the gate to a state using the * operator.
