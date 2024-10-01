@@ -43,6 +43,14 @@ class Gate:
                 self._matrix = np.array([[1, 0], [0, -1]])
             elif args == "H":
                 self._matrix = np.sqrt(0.5) * np.array([[1, 1], [1, -1]])
+            elif args == "S":
+                self._matrix = np.array([[1, 0], [0, 1j]])
+            elif args == "T":
+                self._matrix = np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]])
+            elif args == "S^†":
+                self._matrix = np.array([[1, 0], [0, -1j]])
+            elif args == "T^†":
+                self._matrix = np.array([[1, 0], [0, np.exp(-1j * np.pi / 4)]])
             else:
                 raise ValueError("Invalid gate name.")
         else:
@@ -230,4 +238,16 @@ class Gate:
             return "Z"
         if np.allclose(self.U, np.sqrt(0.5) * np.array([[1, 1], [1, -1]]), atol=1e-4):
             return "H"
+        if np.allclose(self.U, np.array([[1, 0], [0, 1j]]), atol=1e-4):
+            return "S"
+        if np.allclose(
+            self.U, np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]]), atol=1e-4
+        ):
+            return "T"
+        if np.allclose(self.U, np.array([[1, 0], [0, -1j]]), atol=1e-4):
+            return "S^†"
+        if np.allclose(
+            self.U, np.array([[1, 0], [0, np.exp(-1j * np.pi / 4)]]), atol=1e-4
+        ):
+            return "T^†"
         return f"U({self.U})"

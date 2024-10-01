@@ -13,7 +13,7 @@ def render_settings_bar_frame(root, rerender_bloch_frame):
 
     matrix_form = CTkFrame(master=settings_bar)
     matrix_form.pack(side=TOP, fill="both", expand=True)
-    matrix_form.grid_rowconfigure(tuple(range(5)), weight=1)
+    matrix_form.grid_rowconfigure(tuple(range(7)), weight=1)
     matrix_form.grid_columnconfigure(tuple(range(2)), weight=1)
 
     matrix_label = CTkLabel(master=matrix_form, text="Unitary matrix:")
@@ -41,6 +41,10 @@ def render_settings_bar_frame(root, rerender_bloch_frame):
         Gate("Y").U,
         Gate("Z").U,
         Gate("H").U,
+        Gate("S").U,
+        Gate("T").U,
+        Gate("S^†").U,
+        Gate("T^†").U,
     ]
 
     def set_matrix(matrix):
@@ -61,7 +65,7 @@ def render_settings_bar_frame(root, rerender_bloch_frame):
     ]
 
     for i, btn in enumerate(predefined_matrix_btns):
-        btn.grid(row=3 + i % 2, column=i // 2, padx=5, pady=5, sticky="news")
+        btn.grid(row=3 + i // 2, column=i % 2, padx=5, pady=5, sticky="news")
 
     def apply_gate():
 
