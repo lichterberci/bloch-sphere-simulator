@@ -90,7 +90,7 @@ def draw_bloch_figure(
         0,
         0,
         0,
-        *gate.rotation_axis,
+        *(gate.rotation_axis / np.linalg.norm(gate.rotation_axis)),
         color=rotation_axis_color,
         label="Rotation Axis",
         alpha=0.5,

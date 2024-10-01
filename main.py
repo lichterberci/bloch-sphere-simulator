@@ -2,8 +2,6 @@ from tkinter import *
 from customtkinter import *
 from bloch_frame import render_bloch_frame
 from settings_bar_frame import render_settings_bar_frame
-from state import State
-from gate import Gate
 
 root = CTk()
 

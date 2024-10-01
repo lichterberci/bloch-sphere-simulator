@@ -1,3 +1,4 @@
+from typing import Self
 import numpy as np
 
 
@@ -96,6 +97,21 @@ class State:
         """
         return np.angle(self.beta) - np.angle(self.alpha)
 
+    def set_state(self, new_state: np.ndarray | Self):
+        """
+        Set the state.
+
+        Args:
+            new_state (np.ndarray): The new state.
+        """
+        if isinstance(new_state, State):
+            self._state = new_state.state
+        else:
+            assert (
+                new_state.shape[0] == 2
+            ), "The state must be a column vector of size 2."
+            self._state = new_state
+
     @property
     def bloch_coordinates(self) -> np.ndarray[float]:
         """
@@ -130,13 +146,17 @@ class State:
         return self._state[index]
 
     def __str__(self):
-        if np.allclose(self._state, np.array([1, 0])):
+        if np.allclose(self._state, np.array([1, 0]), rtol=1e-4):
             return "|0>"
-        elif np.allclose(self._state, np.array([0, 1])):
+        elif np.allclose(self._state, np.array([0, 1]), rtol=1e-4):
             return "|1>"
-        elif np.allclose(self._state, np.array([1 / np.sqrt(2), 1 / np.sqrt(2)])):
+        elif np.allclose(
+            self._state, np.array([1 / np.sqrt(2), 1 / np.sqrt(2)]), rtol=1e-4
+        ):
             return "|+>"
-        elif np.allclose(self._state, np.array([1 / np.sqrt(2), -1 / np.sqrt(2)])):
+        elif np.allclose(
+            self._state, np.array([1 / np.sqrt(2), -1 / np.sqrt(2)]), rtol=1e-4
+        ):
             return "|->"
 
         return f"{self.alpha:.2f} |0> + {self.beta:.2f} |1>"

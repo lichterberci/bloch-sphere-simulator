@@ -220,14 +220,14 @@ class Gate:
         )
 
     def __repr__(self) -> str:
-        if np.allclose(self.U, np.eye(2)):
+        if np.allclose(self.U, np.eye(2), rtol=1e-4):
             return "I"
-        if np.allclose(self.U, np.array([[0, 1], [1, 0]])):
+        if np.allclose(self.U, np.array([[0, 1], [1, 0]]), rtol=1e-4):
             return "X"
-        if np.allclose(self.U, np.array([[0, -1j], [1j, 0]])):
+        if np.allclose(self.U, np.array([[0, -1j], [1j, 0]]), rtol=1e-4):
             return "Y"
-        if np.allclose(self.U, np.array([[1, 0], [0, -1]])):
+        if np.allclose(self.U, np.array([[1, 0], [0, -1]]), rtol=1e-4):
             return "Z"
-        if np.allclose(self.U, np.sqrt(0.5) * np.array([[1, 1], [1, -1]])):
+        if np.allclose(self.U, np.sqrt(0.5) * np.array([[1, 1], [1, -1]]), rtol=1e-4):
             return "H"
         return f"U({self.U})"
