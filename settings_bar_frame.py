@@ -63,12 +63,36 @@ def render_settings_bar_frame(root, rerender_bloch_frame):
     for i, btn in enumerate(predefined_matrix_btns):
         btn.grid(row=3 + i % 2, column=i // 2, padx=5, pady=5, sticky="news")
 
+    def apply_gate():
+
+        state.set_state(gate * state)
+
+        for i, entry in enumerate(state_entries):
+            entry.delete(0, END)
+            entry.insert(0, f"{state[i]:.5f}")
+            entry.grid(row=i // 2 + 1, column=i % 2, padx=5, pady=5, sticky="news")
+
+        rerender_bloch_frame()
+
+    button_apply = CTkButton(
+        master=settings_bar,
+        text="Apply",
+        command=apply_gate,
+        width=200,
+        height=50,
+    )
+    button_apply.pack(side=TOP, pady=5)
+
     state_form = CTkFrame(master=settings_bar)
     state_form.pack(side=TOP, fill="both", expand=True)
     state_form.grid_rowconfigure(tuple(range(5)), weight=1)
     state_form.grid_columnconfigure(tuple(range(2)), weight=1)
 
     def save_and_rerender():
+
+        # reset colors
+        for entry in matrix_entries:
+            entry.configure(require_redraw=True, text_color="white")
 
         matrix_entry_values = list(map(lambda entry: entry.get(), matrix_entries))
         matrix_entry_filled_values = list(
@@ -81,6 +105,15 @@ def render_settings_bar_frame(root, rerender_bloch_frame):
         )
 
         new_matrix = np.array(matrix_entry_filled_values).reshape(2, 2)
+
+        # check if the matrix is unitary
+        if not np.allclose(np.eye(2), new_matrix @ new_matrix.conj().T, rtol=1e-4):
+
+            for i, entry in enumerate(matrix_entries):
+                entry.configure(require_redraw=True, text_color="red")
+
+            return
+
         gate.set_matrix(new_matrix)
 
         state_entry_values = list(map(lambda entry: entry.get(), state_entries))
@@ -93,6 +126,13 @@ def render_settings_bar_frame(root, rerender_bloch_frame):
             )
         )
         new_state = np.array(state_entry_filled_values)
+
+        if not np.allclose(1, np.linalg.norm(new_state), rtol=1e-4):
+            new_state /= np.linalg.norm(new_state)
+
+            for i, entry in enumerate(state_entries):
+                entry.delete(0, END)
+                entry.insert(0, f"{new_state[i]:.5f}")
 
         state.set_state(new_state)
 
@@ -149,21 +189,11 @@ def render_settings_bar_frame(root, rerender_bloch_frame):
     for i, btn in enumerate(predefined_state_btns):
         btn.grid(row=3 + i % 2, column=i // 2, padx=5, pady=5, sticky="news")
 
-    def apply_gate():
-
-        state.set_state(gate * state)
-
-        for i, entry in enumerate(state_entries):
-            entry.delete(0, END)
-            entry.insert(0, f"{state[i]:.5f}")
-            entry.grid(row=i // 2 + 1, column=i % 2, padx=5, pady=5, sticky="news")
-
-        rerender_bloch_frame()
-
-    button_apply = CTkButton(master=settings_bar, text="Apply", command=apply_gate)
-    button_apply.pack(side=BOTTOM)
-
     button_rerender = CTkButton(
-        master=settings_bar, text="Rerender", command=rerender_bloch_frame
+        master=settings_bar,
+        text="Rerender",
+        command=rerender_bloch_frame,
+        width=200,
+        height=50,
     )
-    button_rerender.pack(side=BOTTOM)
+    button_rerender.pack(side=BOTTOM, pady=5)

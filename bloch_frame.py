@@ -110,9 +110,7 @@ def draw_bloch_figure(
 
     ax.set_box_aspect([1, 1, 1])
     ax.set_aspect("equal")
-    ax.set_title(
-        f"{gate} applied to {state}", color=figure_foreground_color, fontsize=20
-    )
+    ax.set_title(f"Bloch sphere", color=figure_foreground_color, fontsize=20)
 
     leg = ax.legend(
         loc="upper center", fancybox=True, bbox_to_anchor=(0.5, -0.05), ncol=4
@@ -134,7 +132,7 @@ def render_bloch_frame(root: CTk):
     fig, num_pts, points, line = draw_bloch_figure(
         gate,
         state,
-        figsize=(6, 6),
+        figsize=(7, 7),
         figure_background_color="#202020",
         path_color="magenta",
         rotation_axis_color="cyan",

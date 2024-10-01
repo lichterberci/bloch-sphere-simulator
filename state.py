@@ -146,16 +146,16 @@ class State:
         return self._state[index]
 
     def __str__(self):
-        if np.allclose(self._state, np.array([1, 0]), rtol=1e-4):
+        if np.allclose(self._state, np.array([1, 0]), atol=1e-4):
             return "|0>"
-        elif np.allclose(self._state, np.array([0, 1]), rtol=1e-4):
+        elif np.allclose(self._state, np.array([0, 1]), atol=1e-4):
             return "|1>"
         elif np.allclose(
-            self._state, np.array([1 / np.sqrt(2), 1 / np.sqrt(2)]), rtol=1e-4
+            self._state, np.array([1 / np.sqrt(2), 1 / np.sqrt(2)]), atol=1e-4
         ):
             return "|+>"
         elif np.allclose(
-            self._state, np.array([1 / np.sqrt(2), -1 / np.sqrt(2)]), rtol=1e-4
+            self._state, np.array([1 / np.sqrt(2), -1 / np.sqrt(2)]), atol=1e-4
         ):
             return "|->"
 
