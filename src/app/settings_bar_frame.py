@@ -1,10 +1,18 @@
 from tkinter import *
 from customtkinter import *
 from application_state import gate, state
-from gate import Gate
 import numpy as np
 
-from state import State
+import sys
+import os.path
+
+# for being able to import from src
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+)
+
+from bloch_simulator.gate import Gate
+from bloch_simulator.state import State
 
 
 def render_settings_bar_frame(root, rerender_bloch_frame):

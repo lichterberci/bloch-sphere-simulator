@@ -1,6 +1,5 @@
-from typing import Any
 import numpy as np
-from state import State
+from bloch_simulator.state import State
 
 
 class Gate:

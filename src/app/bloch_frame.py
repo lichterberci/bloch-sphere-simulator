@@ -6,9 +6,19 @@ from matplotlib.figure import Figure
 from matplotlib import animation
 from tkinter import *
 from customtkinter import *
-from state import State
-from gate import Gate
+
 from application_state import gate, state
+
+import sys
+import os.path
+
+# for being able to import from src
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+)
+
+from bloch_simulator.state import State
+from bloch_simulator.gate import Gate
 
 canvas = None
 transform_animation = None
