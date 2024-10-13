@@ -1,0 +1,27 @@
+[project]
+name = "bloch-sphere-simulator"
+version = "0.0.1"
+authors = [{ name = "Bertalan Lichter", email = "lichterbertalan@gmail.com" }]
+description = "A simple Bloch sphere simulator library with a lightweight API and a visualizer app."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel",
+    "numpy>=2.0.0",
+    "matplotlib>=3.4.0",
+    "tk-tools",
+    "customtkinter",
+]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/lichterberci/bloch-sphere-simulator"
+Issues = "https://github.com/lichterberci/bloch-sphere-simulator/issues"

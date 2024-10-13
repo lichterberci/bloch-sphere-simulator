@@ -35,7 +35,7 @@ https://github.com/lichterberci/bloch-sphere-simulator).
 
 ##### States
 
-The state is a column vector of size 2, where the first element is the amplitude of $\ket{0}$ and the second element is the amplitude of $\ket{1}$.
+The state is a column vector of size 2, where the first element is the amplitude of $|0\rangle$ and the second element is the amplitude of $|1\rangle$.
 
 ##### Gates
 

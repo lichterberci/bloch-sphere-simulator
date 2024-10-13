@@ -44,7 +44,7 @@ This is the work of a student at ETH Zürich, called Konstantin Herb. It is free
 
 This is yet another open-source project with a farily intuitive UI. The interface and the visualization is a bit less refined than the first project, we looked at, but nothing to be ashamed of.
 
-This site presents us with a bit more information about the current state (such as the polar coordinates $\theta$ and $phi$, the Cartesian coordinates and the probability amplitudes $\alpha$ and $\beta$).
+This site presents us with a bit more information about the current state (such as the polar coordinates $\theta$ and $\phi$, the Cartesian coordinates and the probability amplitudes $\alpha$ and $\beta$).
 
 ### Main features
 
@@ -87,7 +87,7 @@ Although the UI is very simple with a very old style, the Bloch-sphere (to be mo
     - $Z$
     - $H$
 - the user can set the state directly by...
-  - $\ket{0}$, $\ket{1}$, $\ket{+}$ and $\ket{-}$ buttons 
+  - $|0\rangle$, $|1\rangle$, $|+\rangle$ and $|-\rangle$ buttons
   - dragging the state vector around
   - entering the amplitudes directly
 - save the current visualization as a .png
