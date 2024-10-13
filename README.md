@@ -2,7 +2,7 @@
 
 In this repository, you find my work for a quantum informatics course in university. 
 
-For further information, please refer to the [specification](specification.md), [study](study.md) and [documentation](docs/index.md).
+For further information, please refer to the [specification](specification.md), [study](study.md) and [documentation](docs/bloch_simulator/index.md).
 
 ## Install and run application
 
