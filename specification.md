@@ -47,3 +47,9 @@ Applying a gate to a state is a simple matrix multiplication. Determining the ax
 ##### Visualizing the Bloch sphere
 
 The Bloch sphere is visualized by a 3D plot in matplotlib. I chose this library due to familiarity, but one has to realize that drawing a Bloch-sphere only involves drawing spheres, parts of circles, arrows and axis (lines or arrows). The states (before and after the operation) and the axis of operation are quivers, and the path by a curve. The animation is also handled by matplotlib with the in-between states calculated by linear interpolation of the angle around the given axis.
+
+##### Input validation
+
+Whenever a component of the unitary matrix is changed, the program checks if the matrix is unitary. If not, the user is notified by the font color of the matrix entry (the change will not take effect).
+
+For the state vector, the program checks if the input is a valid complex number and that the sum of the squares of the amplitudes is 1. If the input is malformed, the user is notified by the font color of the entry (the change will not take effect) but if the sum of the squares is not 1, the program normalizes the vector.

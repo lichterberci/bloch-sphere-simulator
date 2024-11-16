@@ -9,5 +9,10 @@ sys.path.append(
 from bloch_simulator.gate import Gate
 from bloch_simulator.state import State
 
+previous_inputs = {
+    "unitary_matrix": [""] * 4,
+    "state": [""] * 2,
+}
+
 gate = Gate("X")
 state = State("|0>")
