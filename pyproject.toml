@@ -1,6 +1,6 @@
 [project]
 name = "bloch-sphere-simulator"
-version = "0.0.1"
+version = "1.0.0"
 authors = [{ name = "Bertalan Lichter", email = "lichterbertalan@gmail.com" }]
 description = "A simple Bloch sphere simulator library with a lightweight API and a visualizer app."
 readme = "README.md"

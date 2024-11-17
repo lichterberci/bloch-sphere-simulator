@@ -1,10 +1,18 @@
 # Bloch sphere simulator
 
-*Made by: Bertalan Lichter, 13. 10. 2024.*  
+*Made by: Bertalan Lichter, 13. 10. 2024. - 17. 11. 2024.*  
 
 ## The goal of this project
 
-This is my work for a university assignment and aims to create a simple Bloch-sphere simulator as a standalone python application.
+This is my work for a university assignment and aims to create a simple Bloch-sphere simulator as a standalone python application. 
+
+I intend on this project to be made in such a way that it can easily be integrated into other projects of others. I hope that the core codebase is well-documented enough, so that the user can understand how the library works and how they can use it in their projects. You can check out the [code documentation](docs/code_docs_header.md) for more information. If you have any questions or suggestions, feel free to open an issue on the [github page](https://github.com/lichterberci/bloch-sphere-simulator/issues).
+
+## Background information
+
+The Bloch sphere is a geometric representation of a qubit's state. It is a unit sphere in three-dimensional space, with the north and south poles representing the states $|0\rangle$ and $|1\rangle$, respectively. The equator represents a superposition of these states. Any point on the sphere represents a valid qubit state.
+
+The Bloch sphere is a useful tool for visualizing quantum operations. A quantum gate can be represented as a rotation of the Bloch sphere. The axis of rotation is determined by the gate's matrix, and the angle of rotation is determined by the gate's eigenvalues.
 
 ## An overview of a few Bloch-sphere simulators
 
