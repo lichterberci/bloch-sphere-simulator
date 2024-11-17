@@ -15,13 +15,16 @@ class State:
             *args: The state can be given in different ways:
                 - With no arguments, the state is |0>.
                 - With a numpy array of size 2.
+                - With another state.
                 - With two numbers, the state is a column vector with those numbers as amplitudes.
                 - With a string representing the name of the state: 0, 1, +, - (or |0>, |1>, |+>, |->).
 
         Raises:
             ValueError: If the arguments are invalid.
         """
-        if args is None or len(args) == 0:
+        if isinstance(args[0], State):
+            self._state = args[0].state.copy()
+        elif args is None or len(args) == 0:
             self._state = np.array([1, 0])
         elif isinstance(args[0], np.ndarray):
             assert args[0].shape[0] == 2, "The state must be a column vector of size 2."

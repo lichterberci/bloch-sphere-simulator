@@ -1,13 +1,13 @@
+from typing import Deque, Dict, Union
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.backend_bases import key_press_handler
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 from matplotlib import animation
 from tkinter import *
 from customtkinter import *
 
-from application_state import gate, state
+from application_state import gate, state, history
 
 import sys
 import os.path
@@ -20,13 +20,17 @@ sys.path.append(
 from bloch_simulator.state import State
 from bloch_simulator.gate import Gate
 
+HISTORY_COLOR = (0.7, 0.3, 0)
+
 canvas = None
 transform_animation = None
-
+prev_elevation, prev_azimuth = 30, -45
+fig = None
 
 def draw_bloch_figure(
     gate: Gate,
     state: State,
+    history: Deque[Dict[str, Union[Gate, State]]],
     figsize=(7, 7),
     figure_background_color="#202020",
     figure_foreground_color="white",
@@ -85,8 +89,27 @@ def draw_bloch_figure(
 
     num_pts = 100
 
-    t = np.linspace(0, gate.rotation_angle, num_pts)
 
+    def draw_history_line(_gate: Gate, _state: State, color, linestyle="-"):
+        t = np.linspace(0, _gate.rotation_angle, num_pts)
+        _points = list(
+            map(
+                lambda p: p.bloch_coordinates,
+                [Gate.from_rotation(_gate.rotation_axis, _t).apply(_state) for _t in t],
+            )
+        )    
+        
+        ax.plot(*np.array(_points).T, color=color, linestyle=linestyle, lw=3) 
+    
+    num_history_lines = len(history)
+    
+    for i, history_state in enumerate(history):
+        min_alpha = 0.3
+        alpha = min_alpha + ((i + 1) / (num_history_lines)) * (1 - min_alpha)
+        c = (*HISTORY_COLOR, alpha)
+        draw_history_line(history_state["gate"], history_state["state"], c, linestyle="--")
+    
+    t = np.linspace(0, gate.rotation_angle, num_pts)
     points = list(
         map(
             lambda p: p.bloch_coordinates,
@@ -127,6 +150,9 @@ def draw_bloch_figure(
     )
     leg.get_frame().set_facecolor(figure_background_color)
     leg.get_frame().set_linewidth(0)
+    
+    # reset camera
+    ax.view_init(elev=prev_elevation, azim=prev_azimuth)
 
     for text in leg.get_texts():
         text.set_color(figure_foreground_color)
@@ -136,12 +162,22 @@ def draw_bloch_figure(
 
 
 def render_bloch_frame(root: CTk):
-    from_color = (1, 1, 0, 0.5)
-    to_color = (1, 0, 0, 1)
+    to_color = (1, 1, 0, 0.5)
+    from_color = (1, 0, 0, 1)
+
+    global fig, prev_elevation, prev_azimuth
+
+    if fig is not None:
+        prev_elevation = fig.axes[0].elev
+        prev_azimuth = fig.axes[0].azim
+        plt.close(fig)
+
+    global history
 
     fig, num_pts, points, line = draw_bloch_figure(
         gate,
         state,
+        history,
         figsize=(7, 7),
         figure_background_color="#202020",
         path_color="magenta",
@@ -158,11 +194,11 @@ def render_bloch_frame(root: CTk):
     canvas.draw()
 
     def update(i):
-        interpolatied_color = tuple(
+        interpolated_color = tuple(
             i / num_pts * np.array(to_color) + (1 - i / num_pts) * np.array(from_color)
         )
         line.set_data_3d(*np.array(points[: i + 1]).T)
-        line.set_color(interpolatied_color)
+        line.set_color(interpolated_color)
         return line
 
     animation_time = 2000

@@ -16,13 +16,16 @@ class Gate:
                 - With no arguments, the gate is the identity gate.
                 - With a numpy array of size 2x2.
                 - With a string representing the name of the gate: I, X, Y, Z, H.
+                - With another gate.
 
         Raises:
             ValueError: If the arguments are invalid.
 
         """
 
-        if args is None or len(args) == 0:
+        if isinstance(args, Gate):
+            self._matrix = args.U.copy()
+        elif args is None or len(args) == 0:
             self._matrix = np.eye(2)
         elif isinstance(args, np.ndarray):
             assert args.shape[0] == 2 and args.shape[1] == 2, "The matrix must be 2x2"
