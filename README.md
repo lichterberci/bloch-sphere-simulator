@@ -11,3 +11,7 @@ For further information, please refer to the [specification](specification.md), 
 3. Navigate to the /src/app/ directory
 4. Run `app_main.py`
 5. You should see the application window open up 🎉🎉🎉
+
+## User manual
+
+For a detailed user manual, please refer to the [user manual](docs/guide.md).
